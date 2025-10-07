@@ -61,6 +61,28 @@ try:
         print("✅ Functional Test 3: Modal Tambah Rekomendasi terbuka")
     except Exception as e:
         print("❌ Functional Test 3 gagal (Modal tambah):", e)
+    
+    try:
+        driver.find_element(By.ID, "metode_saw").click()
+        print("✅ Functional Test 4: Metode SAW terpilih")
+        
+    except Exception as e:
+        print("❌ Functional Test 4 gagal (Akses halaman Rekomendasi):", e)
+        
+    try:
+        submit_button = driver.find_element(By.ID, "btn-submit-refresh")
+        submit_button.click()
+        print("⏳ Menunggu notifikasi...")
+
+        notif = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "swal2-popup")))
+        notif_text = notif.text
+
+        if "berhasil" in notif_text.lower():
+            print("✅ Functional Test 5: Data Mahasiswa berhasil ditambahkan")
+        else:
+            print("❌ Functional Test 5: Gagal menambahkan mahasiswa — Pesan:", notif_text)
+    except Exception as e:
+        print("❌ Functional Test 5 gagal (Submit):", e)
 
 except Exception as e:
     print("🔥 Terjadi error utama:", e)
