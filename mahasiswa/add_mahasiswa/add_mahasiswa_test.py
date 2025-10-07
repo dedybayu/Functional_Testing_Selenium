@@ -13,6 +13,9 @@ from login.login_page import LoginPage
 import os
 from dotenv import load_dotenv
 
+base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
+
+
 # Setup driver (Chrome)
 driver = webdriver.Chrome()
 wait = WebDriverWait(driver, 10)
@@ -82,7 +85,7 @@ try:
 
         # Upload foto
         driver.find_element(By.ID, "foto_profile").send_keys(
-            os.path.join(os.path.dirname(os.path.abspath(__file__)), "images", "ram.jpg")
+            os.path.join(base_dir, 'images', 'ram.jpg')
         )
 
         print("✅ Functional Test 4: Semua field berhasil diisi")
