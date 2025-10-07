@@ -34,7 +34,7 @@ try:
     try:
         login_page = LoginPage(driver, APP_URL)
         login_page.open()
-        login_page.login("admin", "admin123")
+        login_page.login(USERNAME, PASSWORD)
 
         dashboard_text = driver.find_element(By.TAG_NAME, "body").text
         assert "Dashboard Admin" in dashboard_text
