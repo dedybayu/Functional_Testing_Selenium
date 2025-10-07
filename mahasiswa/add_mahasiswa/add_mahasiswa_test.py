@@ -5,7 +5,11 @@ from selenium.webdriver.support import expected_conditions as EC
 from faker import Faker
 import random
 import time
-from login_page import LoginPage
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
+from login.login_page import LoginPage
+
 import os
 from dotenv import load_dotenv
 
