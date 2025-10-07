@@ -57,7 +57,7 @@ try:
         tambah_button.click()
 
         modal = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "modal")))
-        assert "Tambah" in modal.text.lower()
+        assert "Data dosen" in modal.text.lower()
         print("✅ Functional Test 3: Modal Tambah dosen terbuka")
     except Exception as e:
         print("❌ Functional Test 3 gagal (Modal tambah):", e)
@@ -71,14 +71,14 @@ try:
         driver.find_element(By.ID, "nama").send_keys(faker.name())
         driver.find_element(By.ID, "email").send_keys(faker.email())
         driver.find_element(By.ID, "no_tlp").send_keys(faker.phone_number())
-        driver.find_element(By.ID, "alamat").send_keys(faker.address())
 
-        driver.find_element(By.ID, "password").send_keys("password123")
-
+        # print(os.path.join(base_dir, 'images', 'ram.jpg'))
         # Upload foto
         driver.find_element(By.ID, "foto_profile").send_keys(
             os.path.join(base_dir, 'images', 'ram.jpg')
         )
+        
+        driver.find_element(By.ID, "password").send_keys("password123")
 
         print("✅ Functional Test 4: Semua field berhasil diisi")
     except Exception as e:
