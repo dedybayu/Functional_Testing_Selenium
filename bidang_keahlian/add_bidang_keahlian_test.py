@@ -44,12 +44,12 @@ try:
 
     # ========== 2️⃣ NAVIGASI KE HALAMAN MAHASISWA ==========
     try:
-        driver.get(f"{APP_URL}/KategoriBidangKeahlian")
+        driver.get(f"{APP_URL}/bidangKeahlian")
         dashboard_text = driver.find_element(By.TAG_NAME, "body").text
         assert "Daftar Bidang Keahlian" in dashboard_text
-        print("✅ Functional Test 2: Halaman Kategori Bidang Keahlian terbuka")
+        print("✅ Functional Test 2: Halaman Bidang Keahlian terbuka")
     except Exception as e:
-        print("❌ Functional Test 2 gagal (Akses halaman Kategori Bidang Keahlian):", e)
+        print("❌ Functional Test 2 gagal (Akses halaman Bidang Keahlian):", e)
 
     # ========== 3️⃣ BUKA MODAL TAMBAH ==========
     try:
@@ -75,8 +75,32 @@ try:
     try:
         rand_num = random.randint(1000, 9999)
 
-        driver.find_element(By.ID, "kategori_bidang_keahlian_kode").send_keys(f"BID_{rand_num}")
-        driver.find_element(By.ID, "kategori_bidang_keahlian_nama").send_keys(faker.word().capitalize())
+        driver.find_element(By.ID, "bidang_keahlian_kode").send_keys(f"BID_{rand_num}")
+        driver.find_element(By.ID, "bidang_keahlian_nama").send_keys(faker.word().capitalize())
+
+        # Tunggu agar form-nya siap (optional)
+        time.sleep(1)
+
+        # Temukan elemen <select> asli
+        dropdown = driver.find_element(By.ID, "kategori_bidang_keahlian_id")
+
+        # Bungkus dengan Select helper Selenium
+        select = Select(dropdown)
+
+        # Ambil semua opsi kecuali yang disabled / placeholder
+        options = [opt for opt in select.options if opt.get_attribute("disabled") is None]
+
+        print("Jumlah opsi:", len(options))
+        for opt in options:
+            print("-", opt.text.strip())
+
+        # Pilih acak
+        if len(options) > 0:
+            selected_option = random.choice(options)
+            print("✅ Memilih:", selected_option.text.strip())
+            select.select_by_visible_text(selected_option.text.strip())
+        else:
+            print("❌ Tidak ada opsi yang bisa dipilih.")
 
         print("✅ Functional Test 4: Semua field berhasil diisi")
     except Exception as e:
@@ -92,9 +116,9 @@ try:
         notif_text = notif.text
 
         if "berhasil" in notif_text.lower():
-            print("✅ Functional Test 5: Data Kategori Bidang Keahlian berhasil ditambahkan")
+            print("✅ Functional Test 5: Data Bidang Keahlian berhasil ditambahkan")
         else:
-            print("❌ Functional Test 5: Gagal menambahkan kategori bidang keahlian — Pesan:", notif_text)
+            print("❌ Functional Test 5: Gagal menambahkan bidang keahlian — Pesan:", notif_text)
     except Exception as e:
         print("❌ Functional Test 5 gagal (Submit):", e)
 
