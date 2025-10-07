@@ -57,11 +57,10 @@ try:
         tambah_button.click()
 
         modal = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "modal")))
-        assert "tambah data Rekomendasi" in modal.text.lower()
+        assert "Perbarui Data Rekomendasi" in modal.text
         print("✅ Functional Test 3: Modal Tambah Rekomendasi terbuka")
     except Exception as e:
         print("❌ Functional Test 3 gagal (Modal tambah):", e)
-
 
 except Exception as e:
     print("🔥 Terjadi error utama:", e)
